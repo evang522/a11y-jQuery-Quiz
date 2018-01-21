@@ -66,8 +66,8 @@ const getQuestion = function(index) {
 const generateAnswerItemHtml = function(answer) {
   return `
     <li class="answer-item">
-      <input type="radio" name="answers" value="${answer}" />
-      <span class="answer-text">${answer}</span>
+      <input type="radio" id ='${answer}id' name="answers" value="${answer}" role='radio' />
+      <label class="answer-text" for='${answer}id'>${answer}</label>
     </li>
   `;
 };
@@ -81,9 +81,11 @@ const generateQuestionHtml = function(question) {
     <form>
       <fieldset>
         <legend class="question-text">${question.text}</legend>
-          ${answers}
-          <button type="submit">Submit</button>
+          <ul role="radiogroup">
+            ${answers}
+          </ul>
       </fieldset>
+      <button type="submit">Submit</button>
     </form>
   `;
 };
@@ -109,31 +111,31 @@ const render = function() {
   $('.js-progress').html(`<span>Question ${current} of ${total}`);
 
   switch (store.page) {
-    case 'intro':
-      $('.js-intro').show();
-      break;
+  case 'intro':
+    $('.js-intro').show();
+    break;
 
-    case 'question':
-      html = generateQuestionHtml(question);
-      $('.js-question').html(html);
-      $('.js-question').show();
-      $('.quiz-status').show();
-      break;
+  case 'question':
+    html = generateQuestionHtml(question);
+    $('.js-question').html(html);
+    $('.js-question').show();
+    $('.quiz-status').show();
+    break;
 
-    case 'answer':
-      html = generateFeedbackHtml(feedback);
-      $('.js-question-feedback').html(html);
-      $('.js-question-feedback').show();
-      $('.quiz-status').show();
-      break;
+  case 'answer':
+    html = generateFeedbackHtml(feedback);
+    $('.js-question-feedback').html(html);
+    $('.js-question-feedback').show();
+    $('.quiz-status').show();
+    break;
 
-    case 'outro':
-      $('.js-outro').show();
-      $('.quiz-status').show();
-      break;
+  case 'outro':
+    $('.js-outro').show();
+    $('.quiz-status').show();
+    break;
 
-    default:
-      return;
+  default:
+    return;
   }
 };
 
